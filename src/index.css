@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #020617;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+canvas {
+  image-rendering: auto;
+}
