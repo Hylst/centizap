@@ -883,7 +883,7 @@ const loseLife = (game: Game) => {
     spawnExplosion(game, game.player.x, game.player.y, 24, "#7dd3fc", 280, 40);
     game.shake = 0.35;
     game.shakeIntensity = 5;
-    game.status = "Bouclier détruit — attention !";
+    game.status = "Bouclier détruit, attention !";
     audioEngine.playSfx("explosion");
     return;
   }
@@ -900,13 +900,13 @@ const loseLife = (game: Game) => {
 
   if (game.lives <= 0) {
     game.gameOver = true;
-    game.status = "Partie terminée — appuie sur R ou Nouvelle partie";
+    game.status = "Partie terminée, appuie sur R ou Nouvelle partie";
     game.player.invulnerable = 0;
     audioEngine.playSfx("gameOver");
     audioEngine.stopMusic();
     return;
   }
-  game.status = "Vaisseau détruit — prépare-toi à redécoller";
+  game.status = "Vaisseau détruit, prépare-toi à redécoller";
   respawnPlayer(game, 2.2);
   audioEngine.playSfx("explosion");
 };
@@ -947,8 +947,8 @@ const spawnWave = (game: Game) => {
 
   game.status =
     groupCount > 1
-      ? `Vague ${game.wave} — essaim divisé en approche`
-      : `Vague ${game.wave} — nettoyez le mille-pattes`;
+      ? `Vague ${game.wave} : essaim divisé en approche`
+      : `Vague ${game.wave} : nettoyez le mille-pattes`;
   respawnPlayer(game, Math.max(game.player.invulnerable, 0.8));
 };
 
@@ -964,7 +964,7 @@ const createGame = (bestScore: number): Game => {
     levelIndex: 0,
     paused: false,
     gameOver: false,
-    status: "Vague 1 — nettoyez le mille-pattes",
+    status: "Vague 1 : nettoyez le mille-pattes",
     waveBanner: 0,
     waveDelay: 0,
     spiderSpawnTimer: 3,
@@ -1228,7 +1228,7 @@ const updateGame = (game: Game, input: InputState, dt: number) => {
   if (game.centipedes.length === 0 && !game.gameOver) {
     if (game.waveDelay === 0) {
       game.waveDelay = 1.8;
-      game.status = `Vague ${game.wave} terminée — prépare la suivante`;
+      game.status = `Vague ${game.wave} terminée, prépare la suivante`;
       audioEngine.playSfx("waveClear");
       game.shake = 0.4;
       game.shakeIntensity = 6;
@@ -1743,6 +1743,7 @@ export default function App() {
     muted: false,
     bestScore: 0,
   });
+  const [showInfo, setShowInfo] = useState(false);
 
   const syncHud = useCallback((game: Game) => {
     setHud({
@@ -1781,7 +1782,7 @@ export default function App() {
     const game = gameRef.current;
     if (!game || game.gameOver) return;
     game.paused = !game.paused;
-    game.status = game.paused ? "Pause" : `Vague ${game.wave} — retour au combat`;
+    game.status = game.paused ? "Pause" : `Vague ${game.wave} : retour au combat`;
     if (game.paused) audioEngine.stopMusic();
     else audioEngine.startMusic(LEVEL_THEMES[game.levelIndex % LEVEL_THEMES.length]);
     syncHud(game);
@@ -1961,7 +1962,7 @@ export default function App() {
             <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
               <span className="inline-flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-fuchsia-400 animate-pulse" />
-                Conçu par <strong className="text-slate-100">Hylst — Geoffroy</strong>
+                Conçu par <strong className="text-slate-100">Hylst, Geoffroy</strong>
               </span>
               <span className="hidden h-4 w-px bg-slate-700 sm:block" />
               <span>Réalisé avec l&apos;aide d&apos;une IA</span>
@@ -2051,6 +2052,13 @@ export default function App() {
               >
                 {hud.muted ? "Réactiver le son" : "Couper le son"}
               </button>
+              <button
+                type="button"
+                onClick={() => setShowInfo(true)}
+                className="rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-white/20 hover:bg-white/10"
+              >
+                ℹ️ Infos
+              </button>
               <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
                 {hud.status}
               </div>
@@ -2097,7 +2105,7 @@ export default function App() {
                   >
                     <div className="flex items-center justify-between gap-2">
                       <p className="font-semibold text-white">
-                        Niveau {index + 1} — {theme.name}
+                        Niveau {index + 1} : {theme.name}
                       </p>
                       <span
                         className="h-3 w-3 rounded-full"
@@ -2121,15 +2129,15 @@ export default function App() {
               <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
                 <li className="flex items-start gap-3">
                   <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-400/15 text-rose-300 ring-1 ring-rose-300/40">★</span>
-                  <div><strong className="text-rose-200">Tir en éventail</strong> — trois projectiles en éventail pendant 8&nbsp;s.</div>
+                  <div><strong className="text-rose-200">Tir en éventail</strong> : trois projectiles en éventail pendant 8&nbsp;s.</div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-400/15 text-amber-300 ring-1 ring-amber-300/40">⚡</span>
-                  <div><strong className="text-amber-200">Tir rapide</strong> — cadence doublée pendant 8&nbsp;s.</div>
+                  <div><strong className="text-amber-200">Tir rapide</strong> : cadence doublée pendant 8&nbsp;s.</div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-cyan-400/15 text-cyan-200 ring-1 ring-cyan-300/40">◯</span>
-                  <div><strong className="text-cyan-200">Bouclier</strong> — protège ton vaisseau d&apos;une collision pendant 12&nbsp;s.</div>
+                  <div><strong className="text-cyan-200">Bouclier</strong> : protège ton vaisseau d&apos;une collision pendant 12&nbsp;s.</div>
                 </li>
               </ul>
             </div>
@@ -2147,10 +2155,29 @@ export default function App() {
         </main>
 
         <footer className="rounded-[28px] border border-white/10 bg-slate-900/55 p-5 text-center text-sm text-slate-400 backdrop-blur">
-          Une création signée <span className="font-semibold text-slate-100">Hylst — Geoffroy</span>, réalisée avec
+          Une création signée <span className="font-semibold text-slate-100">Hylst, Geoffroy</span>, réalisée avec
           l&apos;aide d&apos;une IA. Amuse-toi bien dans l&apos;arène néon&nbsp;!
         </footer>
       </div>
+
+      {showInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4" onClick={() => setShowInfo(false)}>
+          <div className="w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-[28px] border border-white/10 bg-slate-900/95 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6 space-y-3.5 text-sm leading-relaxed text-slate-300">
+              <h3 className="text-xl font-black text-white">Comment ce jeu a été fait</h3>
+              <p><strong className="text-white">Stack :</strong> React 19, TypeScript 5.9, Tailwind CSS 4, Vite 7, compilé en un seul fichier HTML, aucune dépendance chargée depuis l'extérieur.</p>
+              <p><strong className="text-white">Graphismes :</strong> tout est dessiné en Canvas 2D à chaque image (vaisseau, mille-pattes, champignons, araignées, particules), aucun sprite ni image externe.</p>
+              <p><strong className="text-white">Musique &amp; sons :</strong> synthétisés en direct avec l'API Web Audio, une thématique musicale différente par niveau.</p>
+              <p><strong className="text-white">Interactions :</strong> ZQSD ou flèches pour se déplacer, espace ou J pour tirer, avec des power-ups temporaires (tir en éventail, tir rapide, bouclier).</p>
+              <p><strong className="text-white">Architecture :</strong> l'état du jeu vit dans une référence mise à jour à chaque frame de la boucle Canvas, synchronisée vers le state React uniquement pour l'affichage du HUD.</p>
+              <p><strong className="text-white">Algorithmes notables :</strong> le mille-pattes est une chaîne de segments qui se divise en deux groupes indépendants dès qu'un segment du milieu est touché, chacun continuant sa progression dans le champ de champignons qui dévie sa trajectoire.</p>
+            </div>
+            <div className="border-t border-white/10 p-4 text-center">
+              <button onClick={() => setShowInfo(false)} className="rounded-full border border-white/10 bg-white/10 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20">Fermer</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
