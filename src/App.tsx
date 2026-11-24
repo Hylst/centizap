@@ -1952,7 +1952,7 @@ export default function App() {
               Jeu d&apos;arcade neuronal
             </div>
             <div>
-              <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl">Mille-Pattes Néon</h1>
+              <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl">Centizap</h1>
               <p className="mt-2 max-w-3xl text-sm text-slate-300 sm:text-base">
                 Pulvérise un mille-pattes segmenté qui se divise à chaque tir, fraye dans un champ de
                 champignons vivants et résiste aux araignées voraces sur des niveaux de plus en plus
@@ -2019,7 +2019,7 @@ export default function App() {
               <canvas
                 ref={canvasRef}
                 className="mx-auto block h-auto w-full max-w-[576px] rounded-2xl border border-white/10 bg-slate-950"
-                aria-label="Plateau de jeu Mille-Pattes Néon"
+                aria-label="Plateau de jeu Centizap"
               />
             </div>
 
