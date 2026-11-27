@@ -1,6 +1,6 @@
 # Centizap
 
-Arcade shoot-em-up néon inspiré de Centipede. 5 thèmes visuels, power-ups, boss, musique procédurale.
+Arcade shoot-em-up néon inspiré de Centipede. 5 thèmes visuels, power-ups, musique procédurale.
 
 ## Jouer
 

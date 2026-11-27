@@ -2117,7 +2117,7 @@ export default function App() {
                       {index === 1 && "Araignées rapides · toxines phosphorescentes · rythme tendu."}
                       {index === 2 && "Sable abrasif · champignons denses · musique sèche."}
                       {index === 3 && "Glace spectrale · centipèdes glissants · mélodie planante."}
-                      {index === 4 && "Cœur stellaire · tout accélère · boss météorique imminent."}
+                      {index === 4 && "Cœur stellaire · tout accélère · dernier palier imminent."}
                     </p>
                   </div>
                 ))}

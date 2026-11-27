@@ -22,3 +22,7 @@
 
 - [ ] Le centipede peut parfois traverser les bords dans certaines conditions de split
 - [ ] Le son peut avoir une latence sur certains navigateurs mobiles
+
+## Audit du 27/11/2026
+
+- [ ] Décider d'implémenter un boss ou de conserver le retrait de la promesse dans la meta, la fiche et le README.
